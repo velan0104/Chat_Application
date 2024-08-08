@@ -1,0 +1,5 @@
+.scroll-bar::-webkit-scrollbar {
+    background: #8417ff;
+    border-radius: 10px;
+    width: 5px;
+}
