@@ -1,4 +1,5 @@
-export const HOST = "http://localhost:5000";
+export const LOCAL_HOST = "http://localhost:5000";
+export const HOST = "https://chatify-backend-73lu.onrender.com";
 
 // import.meta.env.VITE_SERVER_URL
 
