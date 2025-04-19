@@ -5,7 +5,6 @@ const getBase64 = (file) => `data:${file.mimetype};base64,${file.buffer.toString
 
 const uploadFilesToCloudinary = async (files = []) => {
     const uploadPromises = files.map((file) => {
-        console.log(file);
         return new Promise((resolve, reject) => {
             cloudinary.uploader.upload(
                 getBase64(file),
@@ -23,14 +22,12 @@ const uploadFilesToCloudinary = async (files = []) => {
 
     try {
         const results = await Promise.all(uploadPromises);
-        console.log(results);
         const formattedResults = results.map((result) => ({
             public_id: result.public_id,
             url: result.secur_url,
         }));
         return formattedResults;
     } catch (error) {
-        console.log(error);
         throw new Error("Error uploading files to cloudinary: ", error)
     }
 };

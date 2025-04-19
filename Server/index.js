@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from 'cors';
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import connnectDB from "./config/connect.js";
@@ -18,12 +18,13 @@ const databaseURL = process.env.DATABASE_URL;
 
 connnectDB(databaseURL);
 
-app.use(cors({
-    origin: [process.env.ORIGIN],
+app.use(
+  cors({
+    origin: [process.env.ORIGIN, "http://192.168.0.103:5173"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
-}))
-
+  })
+);
 
 app.use("/uploads/profiles", express.static("uploads/profiles"));
 app.use("/uploads/files", express.static("uploads/files"));
@@ -38,8 +39,8 @@ app.use("/api/message", messageRoute);
 app.use("/api/channel", channelRoute);
 
 const server = app.listen(port, () => {
-    console.log(`Server is running at port ${port}`);
-})
+  console.log(`Server is running at port ${port}`);
+});
 
-setUpSocket(server)
+setUpSocket(server);
 

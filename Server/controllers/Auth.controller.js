@@ -17,7 +17,6 @@ const cookieOptions = {
 
 const signup = async (req, res, next) => {
 
-    console.log("Request reached")
     try {
         const { email, password } = req.body;
         if (!email || !password) {
@@ -25,14 +24,12 @@ const signup = async (req, res, next) => {
         }
 
         const user = await User.create({ email, password });
-        console.log(createToken(email, user._id))
 
         return res.status(201).cookie("chat-token", createToken(email, user._id), cookieOptions).json({
             user
         })
 
     } catch (error) {
-        console.log(error);
         return res.status(500).send("Internal Server Error");
     }
 }
@@ -69,7 +66,6 @@ const login = async (req, res, next) => {
         })
 
     } catch (error) {
-        console.log(error);
         return res.status(500).send("Internal Server Error");
     }
 }
@@ -90,7 +86,6 @@ const getUserInfo = async (req, res, next) => {
             color: userData.color,
         })
     } catch (error) {
-        console.log(error);
         return res.status(500).send("Internal Server Error");
     }
 }
@@ -123,7 +118,6 @@ const updateProfile = async (req, res, next) => {
             color: userData.color,
         })
     } catch (error) {
-        console.log({ error })
         return res.status(500).send("Internal Server Error");
     }
 }
@@ -133,19 +127,15 @@ const addProfileImage = async (req, res, next) => {
         if (!req.file)
             return res.status(400).send("File is required.");
 
-        console.log(req.file)
+        const fileUrl = req.file.path;
+        const publicId = req.file.filename;
 
-        const date = Date.now();
-        let fileName = "uploads/profiles/" + date + req.file.originalname;
-        renameSync(req.file.path, fileName);
-
-        const updateUser = await User.findByIdAndUpdate(req.userId, { image: fileName }, { new: true, runValidators: true })
+        const updateUser = await User.findByIdAndUpdate(req.userId, { image: fileUrl }, { new: true, runValidators: true })
 
         return res.status(200).json({
             image: updateUser.image,
         })
     } catch (error) {
-        console.log({ error })
         return res.status(500).send("Internal Server Error");
     }
 }
@@ -168,7 +158,6 @@ const removeProfileImage = async (req, res, next) => {
 
         return res.status(200).send("Profile image removed successfully.")
     } catch (error) {
-        console.log({ error })
         return res.status(500).send("Internal Server Error");
     }
 }

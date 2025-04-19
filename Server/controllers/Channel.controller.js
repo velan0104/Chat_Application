@@ -58,7 +58,6 @@ const getChannelMessages = async (req, res, next) => {
                 select: "firstName lastName email _id image color"
             }
         })
-        console.log("Channel: ", channel)
 
         if (!channel) {
             return Response.status(404).send("Channel not found.")
@@ -69,7 +68,6 @@ const getChannelMessages = async (req, res, next) => {
         return res.status(201).json({ messages });
 
     } catch (error) {
-        console.log("Hello")
         return res.status(500).send("Internal server error")
     }
 }
@@ -78,7 +76,6 @@ const addMembers = async (req, res, next) => {
     try {
         const { channelId, memberId } = req.body;
         const userId = req.userId;
-        console.log("Member Id: ", memberId)
 
         const channel = await Channel.find({})
 
@@ -155,7 +152,7 @@ const leaveGroup = async (req, res, next) => {
         }
 
         if (channel.admin.toString() === userId) {
-            console.log("Hello from Admin")
+
             const randomMembers = Math.round(Math.random() * length);
             const newAdminId = channel.members[randomMembers]._id.toString();
 
@@ -200,16 +197,12 @@ const deleteGroup = async (req, res, next) => {
         const { userId } = req;
 
         const channel = await Channel.findById(channelId);
-        console.log("hello 1");
 
         if (channel.admin.toString() != userId) {
             return res.status(400).json("Only Admin have access to delete the group");
         }
-        console.log("hello 2");
 
         await Channel.findByIdAndDelete(channelId);
-        console.log("hello 3");
-
         return res.status(200).json("Group deleted successfully");
 
     } catch (error) {
@@ -220,24 +213,18 @@ const deleteGroup = async (req, res, next) => {
 const addProfileImage = async (req, res, next) => {
     try {
         const { channelId } = req.body;
-        console.log("body: ", req.body);
         if (!req.file)
             return res.status(400).send("File is required.");
 
-        // console.log(req.file)
+        const fileUrl = req.file.path;
+        const publicId = req.file.filename;
 
-        const date = Date.now();
-        let fileName = "uploads/profiles/" + date + req.file.originalname;
-        renameSync(req.file.path, fileName);
-
-        const updatedUser = await Channel.findByIdAndUpdate(channelId, { image: fileName }, { new: true, runValidators: true })
-        console.log(updatedUser)
+        const updatedUser = await Channel.findByIdAndUpdate(channelId, { image: fileUrl }, { new: true, runValidators: true })
 
         return res.status(200).json({
             image: updatedUser.image,
         })
     } catch (error) {
-        console.log({ error })
         return res.status(500).send("Internal Server Error");
     }
 }
@@ -260,7 +247,6 @@ const removeProfileImage = async (req, res, next) => {
 
         return res.status(200).send("Profile image removed successfully.")
     } catch (error) {
-        console.log({ error })
         return res.status(500).send("Internal Server Error");
     }
 }
@@ -289,7 +275,6 @@ const addNewMembers = async (req, res, next) => {
         const { userId } = req;
 
         const channel = await Channel.findById(channelId);
-        console.log(channel);
         if (userId !== channel.admin.toString()) {
             return res.status(400).json("Only Admin can add new members");
         }

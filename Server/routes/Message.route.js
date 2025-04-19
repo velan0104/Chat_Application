@@ -1,11 +1,9 @@
 import express from "express";
-import { verifyToken } from "../middlewares/Auth.middleware.js"
+import { verifyToken } from "../middlewares/Auth.middleware.js";
 import { getMessages, uploadFile } from "../controllers/Message.controller.js";
-import multer from "multer";
+import { upload } from "../config/multer.js";
 
 const app = express.Router();
-
-const upload = multer({ dest: "uploads/files" });
 
 app.use(verifyToken);
 

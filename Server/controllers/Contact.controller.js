@@ -33,7 +33,6 @@ const getContactForDMList = async (req, res, next) => {
     try {
 
         let { userId } = req;
-        console.log("UserId: ", userId)
         userId = new mongoose.Types.ObjectId(userId);
 
         const contacts = await Message.aggregate([

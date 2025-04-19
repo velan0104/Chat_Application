@@ -6,17 +6,17 @@ export const AUTH_ROUTES = "api/auth";
 export const SIGNUP_ROUTE = `${AUTH_ROUTES}/signup`;
 export const LOGIN_ROUTE = `${AUTH_ROUTES}/login`;
 export const GET_USER_INFO = `${AUTH_ROUTES}/userInfo`;
-export const UPDATE_PROFILE_ROUTE = `${AUTH_ROUTES}/updateProfile`
-export const ADD_PROFILE_IMAGE_ROUTE = `${AUTH_ROUTES}/addProfileImage`
-export const REMOVE_PROFILE_IMAGE_ROUTE = `${AUTH_ROUTES}/removeProfileImage`
-export const LOGOUT_ROUTE = `${AUTH_ROUTES}/logout`
+export const UPDATE_PROFILE_ROUTE = `${AUTH_ROUTES}/updateProfile`;
+export const ADD_PROFILE_IMAGE_ROUTE = `${AUTH_ROUTES}/addProfileImage`;
+export const REMOVE_PROFILE_IMAGE_ROUTE = `${AUTH_ROUTES}/removeProfileImage`;
+export const LOGOUT_ROUTE = `${AUTH_ROUTES}/logout`;
 
-export const CONTACT_ROUTE = "api/contact"
+export const CONTACT_ROUTE = "api/contact";
 export const SEARCH_CONTACT_ROUTE = `${CONTACT_ROUTE}/search`;
 export const GET_CONTACTS_FOR_DM = `${CONTACT_ROUTE}/getContacts`;
 export const GET_ALL_CONTACTS_ROUTE = `${CONTACT_ROUTE}/getAllContacts`;
 
-export const MESSAGE_ROUTE = "api/message"
+export const MESSAGE_ROUTE = "api/message";
 export const GET_MESSAGES = `${MESSAGE_ROUTE}/getMessage`;
 export const UPLOAD_FILE_ROUTE = `${MESSAGE_ROUTE}/uploadFile`;
 
